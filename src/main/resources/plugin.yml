@@ -1,0 +1,21 @@
+name: MoBoxDeathSwap
+version: 1.0-SNAPSHOT
+main: org.mossmc.mosscg.MoBoxDeathSwap.Main
+author: MossCG
+description: A plugin by MossCG for MoBoxMC.
+commands:
+  moboxdeathswap:
+    description: 主指令
+permissions:
+  moboxdeathswap.resetcountdown:
+    description: 重置等待时间权限
+    default: op
+  moboxdeathswap.reducecountdown:
+    description: 减少等待时间权限
+    default: op
+  moboxdeathswap.changerole:
+    description: 更换游戏角色权限
+    default: op
+  moboxdeathswap.changeotherrole:
+    description: 更换他人游戏角色权限
+    default: op

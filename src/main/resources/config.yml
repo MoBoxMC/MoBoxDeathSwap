@@ -1,0 +1,60 @@
+#MoBoxHunter By MossCG
+#插件配置文件
+
+#本场玩家上限（总量上限）
+maxPlayer: 16
+#开始游戏最少玩家
+minPlayer: 4
+
+#时间设置（单位均为秒）
+#开始游戏前等待时间
+waitTime: 60
+#人数到齐缩减等待时间
+reduceTime: 5
+#开始游戏后缓冲时间
+startTime: 10
+#玩家离线后等待时间
+reconnectTime: 300
+#安全时间
+safeTime: 120
+#每次交换间隔基础时间
+changeBasicTime: 90
+#每次交换随机波动时间
+changeRandomTime: 60
+
+#玩家出生地配置
+#出生世界名称
+startWorldName: "world"
+#X轴与Y轴偏移
+startXBasic: 5
+startYBasic: 5
+
+#积分设置
+#只有安装了MoBoxPoint插件才会启用
+#参与游戏就有的积分
+pointBasic: 5
+#胜利方积分
+pointWinner: 20
+#击杀的积分
+#击杀队友不计入积分
+pointKill: 5
+
+#积分及统计数据名称
+#主积分
+pointNameMain: "main"
+#总场次
+pointNameTotal: "deathSwap-standard-total"
+#胜场
+pointNameWin: "deathSwap-standard-win"
+#击杀
+pointNameKill: "deathSwap-standard-kill"
+#死亡
+pointNameDeath: "deathSwap-standard-death"
+
+#游戏结束自动跳转到的服务器
+#需要在BC环境下才可以用，相当于游戏结束自动开下一局
+#需要BC安装PlayerBalancer插件一起食用
+gameEndServerTeleport: true
+gameServerNext: "deathSwap"
+gameServerLobby: "lobby"
+
