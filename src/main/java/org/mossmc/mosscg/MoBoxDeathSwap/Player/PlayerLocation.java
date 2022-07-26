@@ -1,9 +1,6 @@
 package org.mossmc.mosscg.MoBoxDeathSwap.Player;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.mossmc.mosscg.MoBoxDeathSwap.BasicInfo;
 import org.mossmc.mosscg.MoBoxDeathSwap.Main;
@@ -11,10 +8,7 @@ import org.mossmc.mosscg.MoBoxDeathSwap.Main;
 import java.util.*;
 
 public class PlayerLocation {
-    public static List<Location> locationCacheList = new ArrayList<>();
-    public static List<UUID> playerCacheList = new ArrayList<>();
     public static Map<UUID,Location> locationCacheMap = new HashMap<>();
-    public static Map<Location,UUID> locationGiverMap = new HashMap<>();
     public static Map<UUID,UUID> locationKillerMap = new HashMap<>();
 
     public static int startXBasic = 5;
@@ -66,49 +60,44 @@ public class PlayerLocation {
     }
 
     public static void distributeLocation() {
-        locationCacheList.clear();
-        playerCacheList.clear();
-        locationCacheMap.clear();
-        locationGiverMap.clear();
-        locationKillerMap.clear();
-        PlayerCache.playerList.forEach(uuid -> {
-            Player player = Bukkit.getPlayer(uuid);
+        //初始化常量
+        Random random = new Random();
+        Map<Integer,Player> playerNumberMap = new HashMap<>();
+        int count = 0;
+
+        //初始化变量
+        List<UUID> playerList = new ArrayList<>(PlayerCache.playerList);
+
+        //随机抽取玩家并编号
+        while (playerList.size() > 0) {
+            UUID playerUUID = playerList.get(random.nextInt(playerList.size()));
+            Player player = Bukkit.getPlayer(playerUUID);
             if (player != null) {
                 if (PlayerCache.playerStatusMap.get(player.getName()).equals(BasicInfo.playerStatus.Alive)) {
                     if (player.isOnline()) {
-                        locationCacheList.add(player.getLocation());
-                        playerCacheList.add(uuid);
-                        locationGiverMap.put(player.getLocation(), uuid);
+                        count++;
+                        playerNumberMap.put(count,player);
                     }
                 }
             }
-        });
-        playerCacheList.forEach(uuid -> {
-            Player player = Bukkit.getPlayer(uuid);
-            Random random = new Random();
-            boolean isSelf = true;
-            Location location = null;
-            int times = 0;
-            if (player != null) {
-                while (isSelf) {
-                    location = locationCacheList.get(random.nextInt(locationCacheList.size()));
-                    if (player.getUniqueId() != locationGiverMap.get(location)) {
-                        isSelf = false;
-                    }
-                    if (locationCacheList.size() <= 1) {
-                        PlayerCheck.check();
-                        isSelf = false;
-                    }
-                    times++;
-                    if (times > 10) {
-                        isSelf = false;
-                    }
-                }
-                locationCacheList.remove(location);
-                locationCacheMap.put(uuid, location);
-                locationKillerMap.put(uuid, locationGiverMap.get(location));
+            playerList.remove(playerUUID);
+        }
+
+        //分配坐标
+        int nowNumber = 1;
+        while (nowNumber <= count) {
+            Player player = playerNumberMap.get(nowNumber);
+            Player playerNext;
+            if (nowNumber == count) {
+                playerNext = playerNumberMap.get(1);
+            } else {
+                playerNext = playerNumberMap.get(nowNumber+1);
             }
-        });
+            Main.logger.info(ChatColor.GREEN+"玩家"+player.getName()+"分配到了"+playerNext.getName()+"的坐标！");
+            locationCacheMap.put(player.getUniqueId(),playerNext.getLocation());
+            locationKillerMap.put(player.getUniqueId(),playerNext.getUniqueId());
+            nowNumber++;
+        }
     }
 
     public static void locationTeleport() {

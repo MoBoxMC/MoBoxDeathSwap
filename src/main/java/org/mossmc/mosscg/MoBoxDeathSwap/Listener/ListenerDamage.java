@@ -10,16 +10,16 @@ import org.mossmc.mosscg.MoBoxDeathSwap.Player.PlayerCache;
 public class ListenerDamage implements Listener {
     @EventHandler
     public static void onDamage(EntityDamageByEntityEvent event) {
+        if (!BasicInfo.canDamage) {
+            event.setCancelled(true);
+            return;
+        }
         if (!(event.getEntity() instanceof Player)) {
             return;
         }
+        PlayerCache.lastDamageTime.put(event.getEntity().getUniqueId(),System.currentTimeMillis());
         if (!(event.getDamager() instanceof Player)) {
             return;
-        }
-        if (!BasicInfo.canDamage) {
-            event.setCancelled(true);
-        } else {
-            PlayerCache.lastDamageTime.put(event.getEntity().getUniqueId(),System.currentTimeMillis());
         }
     }
 }
