@@ -17,7 +17,7 @@ public class PlayerChat {
     public static void setPlayerChatPlayer(UUID player) {
         ChatChannel.resetPlayerChat(player);
         ChatChannel.addPlayerChatChannel(player,"player");
-        ChatChannel.setPlayerChatColor(player, ChatColor.GRAY);
+        ChatChannel.setPlayerChatColor(player, ChatColor.WHITE);
         ChatChannel.setPlayerChatPrefix(player,ChatColor.GREEN+"[玩家]");
     }
 

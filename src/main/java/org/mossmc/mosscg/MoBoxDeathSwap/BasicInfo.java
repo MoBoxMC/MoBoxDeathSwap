@@ -4,7 +4,7 @@ import org.bukkit.Location;
 
 public class BasicInfo {
     public static String pluginName = "MoBoxDeathSwap";
-    public static String pluginVersion = "V1.2.1.3.2355";
+    public static String pluginVersion = "V1.3.1.1.0104";
     public static String gameName = "DeathSwap";
     public static String winner = "nope";
 
@@ -19,6 +19,7 @@ public class BasicInfo {
 
     public static boolean canInteract = false;
     public static boolean canDamage = false;
+    public static boolean canAllDamage = false;
     public static boolean canPoint = false;
 
     public static Location endLocation;

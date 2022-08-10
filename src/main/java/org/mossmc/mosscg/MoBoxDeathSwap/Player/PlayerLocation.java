@@ -67,6 +67,8 @@ public class PlayerLocation {
 
         //初始化变量
         List<UUID> playerList = new ArrayList<>(PlayerCache.playerList);
+        locationKillerMap.clear();
+        locationCacheMap.clear();
 
         //随机抽取玩家并编号
         while (playerList.size() > 0) {

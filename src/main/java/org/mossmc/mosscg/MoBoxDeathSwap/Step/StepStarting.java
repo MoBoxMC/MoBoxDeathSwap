@@ -24,6 +24,7 @@ public class StepStarting {
         PlayerMove.disableAllMove();
         PlayerChat.initPlayerChat();
         PlayerLocation.distributeSpawn();
+        BasicInfo.canAllDamage = true;
         PlayerCache.playerList.forEach(uuid -> {
             try {
                 Player player = Bukkit.getPlayer(uuid);

@@ -69,7 +69,31 @@ public class Main extends JavaPlugin {
             return false;
         }
         switch (args[0]) {
+            case "help":
+                if (!sender.hasPermission("moboxdeathswap.help") && !sender.isOp()) {
+                    sender.sendMessage(ChatColor.RED+"你没有权限执行这个指令！");
+                    return false;
+                }
+                sender.sendMessage(ChatColor.DARK_GREEN+"MoBoxDeathSwap帮助信息");
+                if (sender.hasPermission("moboxdeathswap.list")) {
+                    sender.sendMessage(ChatColor.GREEN+"/mbds list - 游戏内玩家列表");
+                }
+                if (sender.hasPermission("moboxdeathswap.resetcountdown")) {
+                    sender.sendMessage(ChatColor.GREEN+"/mbds resetcountdown - 重置等待时间");
+                }
+                if (sender.hasPermission("moboxdeathswap.reducecountdown")) {
+                    sender.sendMessage(ChatColor.GREEN+"/mbds reducecountdown - 减少等待时间");
+                }
+                if (sender.hasPermission("moboxdeathswap.changerole")) {
+                    sender.sendMessage(ChatColor.GREEN+"/mbds join <player/observer> [玩家ID] - 更换自己或别人的游戏角色");
+                }
+                sender.sendMessage(ChatColor.YELLOW+"By 墨守MossCG");
+                break;
             case "list":
+                if (!sender.hasPermission("moboxdeathswap.list") && !sender.isOp()) {
+                    sender.sendMessage(ChatColor.RED+"你没有权限执行这个指令！");
+                    return false;
+                }
                 if (!GameBasicInfo.gameStatus.equals(GameStatus.gameStatus.Running)) {
                     sender.sendMessage(ChatColor.RED+"游戏还未开始或已结束！您无法使用此指令！");
                     return false;

@@ -17,16 +17,20 @@ public class ListenerKill implements Listener {
         Player target = event.getEntity();
         Player killer = event.getEntity().getKiller();
         if (killer == null) {
-            if (BasicInfo.lastChangeLocationTime + 1000L * 20 > System.currentTimeMillis()) {
-                killer = Bukkit.getPlayer(PlayerLocation.locationKillerMap.get(target.getUniqueId()));
-            } else {
-                if (PlayerCache.lastDamageTime.containsKey(target.getUniqueId())) {
-                    if (BasicInfo.lastChangeLocationTime < PlayerCache.lastDamageTime.get(target.getUniqueId())) {
-                        if ((System.currentTimeMillis() - PlayerCache.lastDamageTime.get(target.getUniqueId()) < 1000 * 10)) {
-                            killer = Bukkit.getPlayer(PlayerLocation.locationKillerMap.get(target.getUniqueId()));
+            try {
+                if (BasicInfo.lastChangeLocationTime + 1000L * 20 > System.currentTimeMillis()) {
+                    killer = Bukkit.getPlayer(PlayerLocation.locationKillerMap.get(target.getUniqueId()));
+                } else {
+                    if (PlayerCache.lastDamageTime.containsKey(target.getUniqueId())) {
+                        if (BasicInfo.lastChangeLocationTime < PlayerCache.lastDamageTime.get(target.getUniqueId())) {
+                            if ((System.currentTimeMillis() - PlayerCache.lastDamageTime.get(target.getUniqueId()) < 1000 * 10)) {
+                                killer = Bukkit.getPlayer(PlayerLocation.locationKillerMap.get(target.getUniqueId()));
+                            }
                         }
                     }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         target.setGameMode(GameMode.SPECTATOR);
