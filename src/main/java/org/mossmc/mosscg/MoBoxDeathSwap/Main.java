@@ -21,6 +21,9 @@ import org.mossmc.mosscg.MoBoxDeathSwap.Player.PlayerCache;
 import org.mossmc.mosscg.MoBoxDeathSwap.Player.PlayerReset;
 import org.mossmc.mosscg.MoBoxDeathSwap.Step.StepWaiting;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class Main extends JavaPlugin {
@@ -61,6 +64,49 @@ public class Main extends JavaPlugin {
             BasicInfo.canPoint = true;
         }
         StepWaiting.runStep();
+    }
+
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        if (args.length == 1) {
+            List<String> tabList = new ArrayList<>();
+            if (sender.hasPermission("moboxdeathswap.help")) {
+                tabList.add("help");
+            }
+            if (sender.hasPermission("moboxdeathswap.list")) {
+                tabList.add("list");
+            }
+            if (sender.hasPermission("moboxdeathswap.resetcountdown")) {
+                tabList.add("resetcountdown");
+            }
+            if (sender.hasPermission("moboxdeathswap.reducecountdown")) {
+                tabList.add("reducecountdown");
+            }
+            if (sender.hasPermission("moboxdeathswap.changerole")) {
+                tabList.add("join");
+            }
+            return tabList;
+        }
+        switch (args[0]) {
+            case "join":
+                if (sender.hasPermission("moboxdeathswap.changerole")) {
+                    if (args.length <= 2) {
+                        return Arrays.asList("observer", "player");
+                    } else {
+                        List<String> nameList = new ArrayList<>();
+                        Bukkit.getOnlinePlayers().forEach(player -> nameList.add(player.getName()));
+                        return nameList;
+                    }
+                }
+                break;
+            case "reducecountdown":
+            case "resetcountdown":
+            case "list":
+            case "help":
+            default:
+        }
+        return null;
     }
 
     @Override

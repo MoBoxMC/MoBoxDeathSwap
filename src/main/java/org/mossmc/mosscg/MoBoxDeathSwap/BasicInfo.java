@@ -4,7 +4,7 @@ import org.bukkit.Location;
 
 public class BasicInfo {
     public static String pluginName = "MoBoxDeathSwap";
-    public static String pluginVersion = "V1.3.1.1.0104";
+    public static String pluginVersion = "V1.3.2.1.1843";
     public static String gameName = "DeathSwap";
     public static String winner = "nope";
 
