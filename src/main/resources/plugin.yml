@@ -3,6 +3,7 @@ version: 1.0-SNAPSHOT
 main: org.mossmc.mosscg.MoBoxDeathSwap.Main
 author: MossCG
 description: A plugin by MossCG for MoBoxMC.
+softdepend: [MoBoxCore]
 commands:
   moboxdeathswap:
     description: 主指令
